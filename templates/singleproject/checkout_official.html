@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>时光隧道 - 付款页面</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'singleproject/css/bootstrap.css' %}">
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="col">
+                <a class="navbar-brand" href="/">
+                    <img src="{% static 'singleproject/img/j0.jpg' %}" width="30" height="30" class="d-inline-block align-top" alt="">
+                   时光隧道
+                </a>
+            </div>
+            <div class="col">
+                <ul class="navbar-nav justify-content-end">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/logout">注销用户，返回首页</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div id="checkout_section">
+            <form action="/charge" method="POST">
+                {% csrf_token %}
+                <h4>Order Summary:</h4>
+                <label class="font-weight-bold">时光隧道名称:</label>
+                <p>{{request.session.cart.coder}}</p>
+                <label class="font-weight-bold">您选择的服务:</label>
+                <p>{{request.session.cart.exam}}</p>
+                <label class="font-weight-bold">服务时间:</label>
+                <p>{{request.session.cart.date}}</p>
+                <label class="font-weight-bold">价格:</label>
+                <p>$199.95</p>
+                <script
+                src="https://checkout.stripe.com/checkout.js"
+                class="stripe-button"
+                data-key="pk_test_p8gZMkh2HOW2VLZR5pPy2kUg"
+                data-image="{% static 'singleproject/img/j0.jpg' %}"
+                data-name=" 感谢您的消费 "
+                data-description="您将刷卡消费 - $199.95"
+                data-amount="19995">
+                </script>
+            </form>
+            <br>
+            <h5>请点蓝色按钮刷卡付款哟</h5>
+            <p>(卡号：4242 4242 4242 4242</p>
+            <p>邮箱请使用注册时填的邮箱)</p>
+            <p>付款遇到问题了？看这里：第一行填写您的电子邮箱；第二行您的卡号（4242 4242 4242 4242）第三行左边填写银行卡的过期时间（必须是将来的时间） 第三行右边随意输入3个数字</p>
+
+        </div>
+        <hr>
+        <div class="footer">
+            <p>© Company 2018</p>
+        </div>
+    </div>
+</body>
+</html>

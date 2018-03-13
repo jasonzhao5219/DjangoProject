@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Coders On Demand - Dashboard</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'singleproject/css/bootstrap.css' %}">
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="col">
+                <a class="navbar-brand" href="/">
+                    <img src="{% static 'singleproject/img/j0.jpg' %}" width="30" height="30" class="d-inline-block align-top" alt="">
+                    老照片
+                </a>
+            </div>
+            <div class="col">
+                <ul class="navbar-nav justify-content-end">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/logout">注销用户</a>
+                    </li>
+                    <!-- Admin button fixed in views.py -->
+                    {% if user.admin %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin">管理员</a>
+                    </li>                        
+                    {% endif %}
+                </ul>
+
+            </div>
+
+        </nav>
+
+        <div id="dash_body">
+            <h3>Orders</h3>
+            <table class="table">
+                <thead>
+                    <th>服务项目</th>
+                    <th>服务时间</th>
+                    <th>永恒瞬间</th>
+                </thead>
+                <tbody>
+                {% for order in all_orders %}
+                    <tr>
+                        <td>{{order.exam_topic}}</td>
+                        <td>{{order.date}}</td>
+                        <td>{{order.coder.alias}}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <a href="/order" class="btn btn-primary" role="button">选择服务内容（时光隧道大门，赶快点这里）</a>
+        </div>
+        <hr>
+        <div class="footer">
+            <p>© Company 2018</p>
+        </div>
+    </div>
+</body>
+</html>

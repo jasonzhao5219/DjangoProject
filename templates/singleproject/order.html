@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Pikaqiu world - 重温旧时光</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'singleproject/css/bootstrap.css' %}">
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="col">
+                <a class="navbar-brand" href="/">
+                    {% load static %}
+                    <img src="{% static 'singleproject/img/j0.jpg' %}" width="30" height="30" class="d-inline-block align-top" alt="">
+                  
+                    Pikaqiu world
+                </a>
+            </div>
+            <div class="col">
+                <ul class="navbar-nav justify-content-end">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div id="browse_coders">
+            <h3 >重温旧时光</h3>
+            <div class="card-deck">
+            {% for coder in coders %}
+                <div class="card">
+                    {% load static from staticfiles %}
+                    <img class="card-img-top" src="/static/singleproject/img/j0.jpg" alt="Coder picture">
+                    <div class="card-body">
+                        
+                        <h4 class="card-title">{{coder.first_name}}</h4>
+                        <h5 class="card-text">{{coder.alias}}</h5>
+                        <p class="card-text">Age {{coder.age}}</p>
+                        <a href="/coder_profile/{{coder.id}}" class="btn btn-primary">Learn More</a>
+                    </div>
+                </div>      
+            {% endfor %}
+            </div>
+        </div>
+        <hr>
+        <div id="hire_form">
+            <h3>选择一个时光隧道</h3>
+            <form action="/checkout" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="coder">时光隧道</label>
+                    <select class="form-control" name="coder">
+                        <option></option>
+                        {% for coder in coders %}
+                        <option value="{{coder.id}}">{{coder.first_name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">                       
+                    <label for="exam_subject">服务项目:</label>
+                    <select class="form-control" name="exam_subject">
+                        <option></option>
+                        <option value="租借相片一整天">租借相片一整天</option>
+                        <option value="为相片装相框">为相片装相框</option>
+                        <option value="抱着相片跳舞">抱着相片跳舞</option>
+                        <option value="看着相片编程">看着相片编程</option>
+                        <option value="与相片合体">与相片合体</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="date">欣赏照片时间</label>
+                    <select class="form-control" name="date">
+                        <option></option>
+                        <option value="January 26, 2018">一月 26, 2018</option>
+                        <option value="February 23, 2018">二月 23, 2018</option>
+                        <option value="March 23, 2018">三月 23, 2018</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="price">Price:</label>
+                    <select class="form-control" name="price">
+                        <option></option>
+                        <option value="199.95">$199.95</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">去结账</button> 
+                <img id="powered_by_stripe" class="img-fluid" src="{% static 'singleproject/img/powered_by_stripe.png' %}" alt="Stripe Logo">           
+            </form>
+        </div>
+        <hr>
+        <div class="footer">
+            <p>© Company 2018</p>
+        </div>
+    </div>
+</body>
+</html>

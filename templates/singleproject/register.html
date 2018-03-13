@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Coders On Demand - Register</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'singleproject/css/bootstrap.css' %}">
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="col">
+                <a class="navbar-brand" href="/">
+                    <img src="{% static 'singleproject/img/j0.jpg' %}" width="30" height="30" class="d-inline-block align-top" alt="">
+                    时光隧道
+                </a>
+            </div>
+            <div class="col">
+                <ul class="navbar-nav justify-content-end">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/#login">Log In</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div id="reg">
+            <h1>新用户注册</h1>
+            {% if messages %}
+            <div class="error_box">
+                {% for message in messages %}
+                    {% if message.tags == 'error' %}
+                <p class="{{message.tags}}">{{message}}</p>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            {% endif %}
+            <form action="/process/add" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label class="col-form-label" for="first_name">名:</label>
+                    <input type="text" class="form-control" name="first_name" placeholder="First Name">
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label" for="last_name">姓:</label>
+                    <input type="text" class="form-control" name="last_name" placeholder="Last Name">
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label" for="email">电子邮箱:</label>
+                    <input type="text" class="form-control" name="email" placeholder="Email">
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label" for="username">用户名:</label>
+                    <input type="text" class="form-control" name="username" placeholder="Username">
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label" for="dob">生日:</label>
+                    <input type="date" class="form-control" name="dob" placeholder="Date of Birth">
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label" for="password">密码（至少包含1个大写字母，1个小写字母，一个数字，一个符号）:</label>
+                    <input type="password" class="form-control" name="password" placeholder="Password">
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label" for="confirm_password">再输入一遍密码:</label>
+                    <input type="password" class="form-control" name="confirm_password" placeholder="Confirm Password">
+                </div>
+                <button type="submit" class="btn btn-primary">确认注册</button>
+            </form>
+        </div>
+        <hr>
+        <div class="footer">
+            <p>© Company 2018</p>
+        </div>
+    </div>
+</body>
+</html>
